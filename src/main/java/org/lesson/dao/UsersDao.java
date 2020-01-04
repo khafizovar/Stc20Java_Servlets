@@ -2,6 +2,7 @@ package org.lesson.dao;
 
 import org.lesson.pojo.User;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -10,4 +11,6 @@ import java.util.Optional;
  */
 public interface UsersDao {
     Optional<User> findUser(String userName, String password);
+
+    Collection<User> getAllUsers();
 }

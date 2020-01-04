@@ -5,6 +5,7 @@ import org.lesson.pojo.Mobile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,14 +16,15 @@ import java.util.Collection;
 
 @WebServlet(urlPatterns = "/allmobiles", name = "Mobiles")
 public class AllMobilesServlet extends HttpServlet {
+    @Inject
     private MobileDao mobileDao;
     private Logger logger = LoggerFactory.getLogger(AppContextListener.class);
 
-    @Override
+   /* @Override
     public void init() throws ServletException {
         mobileDao = (MobileDao) getServletContext().getAttribute("dao");
         super.init();
-    }
+    }*/
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

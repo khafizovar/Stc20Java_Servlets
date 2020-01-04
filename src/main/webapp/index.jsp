@@ -11,6 +11,7 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/allmobiles">List mobiles</a></li>
             <li><a href="${pageContext.request.contextPath}/addmobile">Add mobile</a></li>
+            <li><a href="${pageContext.request.contextPath}/allusers">Users list</a></li>
         </ul>
     </jsp:body>
 </myTags:template>

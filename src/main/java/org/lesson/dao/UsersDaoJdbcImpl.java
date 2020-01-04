@@ -2,6 +2,7 @@ package org.lesson.dao;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.lesson.ConnectionManager.ConnectionManager;
+import org.lesson.pojo.Mobile;
 import org.lesson.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -23,6 +27,7 @@ import java.util.Optional;
 public class UsersDaoJdbcImpl implements UsersDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UsersDaoJdbcImpl.class);
+    public static final String SELECT_FROM_PUBLIC_USERS_WHERE_USERNAME_AND_PASSWORD = "SELECT * FROM public.\"users\" WHERE username = ? AND password = ?";
 
     private ConnectionManager connectionManager;
 
@@ -35,7 +40,7 @@ public class UsersDaoJdbcImpl implements UsersDao {
 
         try (Connection connection = this.connectionManager.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM public.\"users\" WHERE username = ? AND password = ?");
+                    SELECT_FROM_PUBLIC_USERS_WHERE_USERNAME_AND_PASSWORD);
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, DigestUtils.md5Hex(password));
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -50,5 +55,24 @@ public class UsersDaoJdbcImpl implements UsersDao {
             logger.error("Error in UsersDao.findUser: " + userName , e);
         }
         return Optional.empty();
+    }
+
+    @Override public Collection<User> getAllUsers() {
+        List<User> lstusrs = new ArrayList<>();
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM public.\"users\"");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                lstusrs.add(new User(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4)));
+            }
+            return lstusrs;
+        } catch (SQLException e) {
+            logger.error("Error in UsersDao.getAllUsers.", e);
+        }
+        return new ArrayList<>();
     }
 }
