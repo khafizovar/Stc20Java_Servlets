@@ -10,11 +10,5 @@ public interface MobileDao {
 
   Mobile getMobileById(Integer id);
 
-  boolean updateMobileById(Mobile mobile);
-
-  boolean deleteMobileById(Integer id);
-
-  void createTable();
-
   Collection<Mobile> getAllMobile();
 }

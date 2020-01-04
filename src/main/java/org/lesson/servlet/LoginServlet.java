@@ -2,7 +2,7 @@ package org.lesson.servlet;
 
 
 import org.lesson.auth.AuthUtils;
-import org.lesson.dao.UsersDao;
+import org.lesson.dao.UsersDaoJdbcImpl;
 import org.lesson.pojo.User;
 
 import java.io.*;
@@ -20,7 +20,7 @@ import javax.servlet.http.*;
 public class LoginServlet extends HttpServlet {
 
     @Inject
-    private UsersDao usersDao;
+    private UsersDaoJdbcImpl usersDaoJdbcImpl;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        Optional<User> userAccount = usersDao.findUser(userName, password);
+        Optional<User> userAccount = usersDaoJdbcImpl.findUser(userName, password);
 
         if (!userAccount.isPresent()) {
             String errorMessage = "Неправильное имя пользователя или пароль";
