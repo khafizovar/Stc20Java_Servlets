@@ -20,6 +20,7 @@ public class AllMobilesServlet extends HttpServlet {
     private MobileDao mobileDao;
     private Logger logger = LoggerFactory.getLogger(AppContextListener.class);
 
+    //убираем закомментированный код
    /* @Override
     public void init() throws ServletException {
         mobileDao = (MobileDao) getServletContext().getAttribute("dao");

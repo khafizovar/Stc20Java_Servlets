@@ -11,6 +11,7 @@ import java.io.IOException;
  * @author KhafizovR by 03.01.2020
  * STC20_Sevlets
  */
+// фактически нам тут нужен только doPost
 @WebServlet("/logout")
 public class LogOutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

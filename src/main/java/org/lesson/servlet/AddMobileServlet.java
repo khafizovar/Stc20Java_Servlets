@@ -17,6 +17,7 @@ public class AddMobileServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        // почему здесь тоже не инжектнуть?
         mobileDao = (MobileDao) getServletContext().getAttribute("dao");
         super.init();
     }

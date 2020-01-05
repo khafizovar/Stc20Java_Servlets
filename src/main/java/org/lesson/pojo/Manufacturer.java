@@ -1,5 +1,6 @@
 package org.lesson.pojo;
 
+// видимо хотели сначала запилить как отдельную сущность?
 public class Manufacturer {
   private Integer id;
   private String name;

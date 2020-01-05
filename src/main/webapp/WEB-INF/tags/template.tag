@@ -10,6 +10,7 @@
 <body>
 <div class="container">
     <jsp:invoke fragment="header"/>
+<%--    лучше сделать кнопку, запрос на логаут должен быть POST--%>
     <a href="${pageContext.request.contextPath}/logout" style="position: absolute; right: 25px; top: 10px;">
         Logout
     </a>

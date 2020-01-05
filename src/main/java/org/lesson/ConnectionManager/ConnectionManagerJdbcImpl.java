@@ -16,6 +16,7 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
   private ConnectionManagerJdbcImpl() {
   }
 
+  // ну по сути теперь оно нам не нужно, так как EJB инжектит всё за нас
   public static ConnectionManager getInstance() {
     if (connectionManager == null) {
       connectionManager = new ConnectionManagerJdbcImpl();

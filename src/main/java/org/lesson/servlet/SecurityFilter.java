@@ -22,6 +22,7 @@ public class SecurityFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
+        // какой смысл в этом условии?
         if (request.getServletPath().equals("/login")) {
             chain.doFilter(request, response);
             return;

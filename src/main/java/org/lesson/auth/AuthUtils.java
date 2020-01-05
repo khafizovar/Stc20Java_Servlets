@@ -16,6 +16,7 @@ public class AuthUtils  {
         session.setAttribute("loginedUser", loginedUser);
     }
 
+    // помним про Optional, да и в целом тут можно сделать метод, который возвращает boolean
     public static User getLoginedUser(HttpSession session) {
         return (session.getAttribute("loginedUser") != null) ? (User) session.getAttribute("loginedUser") : null;
     }
