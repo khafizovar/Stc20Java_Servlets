@@ -38,8 +38,4 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
     }
     return connection;
   }
-
-  @Override public int get15() {
-    return 15;
-  }
 }

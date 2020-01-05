@@ -5,6 +5,7 @@ import org.lesson.pojo.User;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author KhafizovR by 03.01.2020
@@ -16,7 +17,7 @@ public class AuthUtils  {
         session.setAttribute("loginedUser", loginedUser);
     }
 
-    public static User getLoginedUser(HttpSession session) {
-        return (session.getAttribute("loginedUser") != null) ? (User) session.getAttribute("loginedUser") : null;
+    public static Optional<User> getLoginedUser(HttpSession session) {
+        return (session.getAttribute("loginedUser") != null) ? Optional.of((User) session.getAttribute("loginedUser")) : Optional.empty();
     }
 }

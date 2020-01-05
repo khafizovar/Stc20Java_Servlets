@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @EJB
 public class MobileDaoJdbcImpl implements MobileDao {
@@ -46,23 +47,23 @@ public class MobileDaoJdbcImpl implements MobileDao {
   }
 
   @Override
-  public Mobile getMobileById(Integer id) {
+  public Optional<Mobile> getMobileById(Integer id) {
     try (Connection connection = connectionManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FROM_MOBILE)) {
       preparedStatement.setInt(1, id);
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
-          return new Mobile(
+          return Optional.of(new Mobile(
               resultSet.getInt(1),
               resultSet.getString(2),
               resultSet.getInt(3),
-              resultSet.getString(4));
+              resultSet.getString(4)));
         }
       }
     } catch (SQLException e) {
       LOGGER.error("Some thing wrong in getMobileById method", e);
     }
-    return null;
+    return Optional.empty();
   }
 
   @Override public Collection<Mobile> getAllMobile() {
@@ -79,7 +80,7 @@ public class MobileDaoJdbcImpl implements MobileDao {
       }
       return lstmb;
     } catch (SQLException e) {
-      LOGGER.error("Some thing wrong in getMobileById method", e);
+      LOGGER.error("Some thing wrong in getAllMobile method", e);
     }
     return new ArrayList<>();
   }

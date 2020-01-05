@@ -27,7 +27,7 @@ public class SecurityFilter implements Filter{
             return;
         }
 
-        if (AuthUtils.getLoginedUser(request.getSession()) != null) {
+        if (AuthUtils.getLoginedUser(request.getSession()).isPresent()) {
             chain.doFilter(request, response);
             return;
         }

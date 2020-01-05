@@ -3,6 +3,7 @@ package org.lesson.servlet;
 import org.lesson.dao.MobileDao;
 import org.lesson.pojo.Mobile;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,13 +14,8 @@ import java.io.IOException;
 @WebServlet("/addmobile")
 public class AddMobileServlet extends HttpServlet {
 
+    @Inject
     private MobileDao mobileDao;
-
-    @Override
-    public void init() throws ServletException {
-        mobileDao = (MobileDao) getServletContext().getAttribute("dao");
-        super.init();
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
