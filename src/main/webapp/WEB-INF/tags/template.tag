@@ -10,9 +10,6 @@
 <body>
 <div class="container">
     <jsp:invoke fragment="header"/>
-    <!-- <a href="${pageContext.request.contextPath}/logout" style="position: absolute; right: 25px; top: 10px;">
-        Logout
-    </a> -->
     <form action="${pageContext.request.contextPath}/logout" method="post" style="position: absolute; right: 25px; top: 10px;">
         <input type="submit" value="выход">
     </form>
