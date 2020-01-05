@@ -16,13 +16,6 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
   private ConnectionManagerJdbcImpl() {
   }
 
-  public static ConnectionManager getInstance() {
-    if (connectionManager == null) {
-      connectionManager = new ConnectionManagerJdbcImpl();
-    }
-    return connectionManager;
-  }
-
   @Override
   public Connection getConnection() {
     Connection connection = null;
