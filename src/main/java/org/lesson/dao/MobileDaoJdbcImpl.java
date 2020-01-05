@@ -62,6 +62,7 @@ public class MobileDaoJdbcImpl implements MobileDao {
     } catch (SQLException e) {
       LOGGER.error("Some thing wrong in getMobileById method", e);
     }
+    // Optional :)
     return null;
   }
 
@@ -79,6 +80,8 @@ public class MobileDaoJdbcImpl implements MobileDao {
       }
       return lstmb;
     } catch (SQLException e) {
+      // здесь у нас getAllMobile
+      // странное решение не прокидывать исключение. Нужно уведомить пользователя о том, что у нас проблемы с подгрузкой списка
       LOGGER.error("Some thing wrong in getMobileById method", e);
     }
     return new ArrayList<>();

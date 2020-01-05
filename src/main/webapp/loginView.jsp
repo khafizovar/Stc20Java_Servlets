@@ -9,7 +9,7 @@
 <%@ taglib uri="/WEB-INF/date.tld" prefix="datetag" %>
 <%@taglib prefix="myTags" tagdir="/WEB-INF/tags" %>
 
-
+<%--для логина всё таки лучше не использовать общую мастер-страницу--%>
 <myTags:template>
     <jsp:attribute name="header">
         <h1>Login page</h1>
