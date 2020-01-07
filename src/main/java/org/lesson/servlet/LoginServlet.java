@@ -4,8 +4,11 @@ package org.lesson.servlet;
 import org.lesson.auth.AuthUtils;
 import org.lesson.dao.UsersDaoJdbcImpl;
 import org.lesson.pojo.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.Optional;
 import javax.inject.Inject;
 import javax.servlet.*;
@@ -18,6 +21,8 @@ import javax.servlet.http.*;
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    private Logger logger = LoggerFactory.getLogger(LoginServlet.class);
 
     @Inject
     private UsersDaoJdbcImpl usersDaoJdbcImpl;
@@ -38,7 +43,13 @@ public class LoginServlet extends HttpServlet {
 
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        Optional<User> userAccount = usersDaoJdbcImpl.findUser(userName, password);
+        Optional<User> userAccount = null;
+        try {
+            userAccount = usersDaoJdbcImpl.findUser(userName, password);
+        } catch (SQLException e) {
+            logger.error("LoginServlet doGet", e);
+            throw new ServletException(e);
+        }
 
         if (!userAccount.isPresent()) {
             String errorMessage = "Неправильное имя пользователя или пароль";

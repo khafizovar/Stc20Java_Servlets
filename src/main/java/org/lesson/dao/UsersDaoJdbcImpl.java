@@ -36,7 +36,7 @@ public class UsersDaoJdbcImpl implements UsersDao {
         this.connectionManager = connectionManager;
     }
 
-    public Optional<User> findUser(String userName, String password) {
+    public Optional<User> findUser(String userName, String password) throws SQLException {
 
         try (Connection connection = this.connectionManager.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -51,13 +51,11 @@ public class UsersDaoJdbcImpl implements UsersDao {
                         resultSet.getString(3),
                         resultSet.getString(4)));
             }
-        } catch (SQLException e) {
-            logger.error("Error in UsersDao.findUser: " + userName , e);
         }
         return Optional.empty();
     }
 
-    @Override public Collection<User> getAllUsers() {
+    @Override public Collection<User> getAllUsers() throws SQLException {
         List<User> lstusrs = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM public.\"users\"");
@@ -70,9 +68,6 @@ public class UsersDaoJdbcImpl implements UsersDao {
                         resultSet.getString(4)));
             }
             return lstusrs;
-        } catch (SQLException e) {
-            logger.error("Error in UsersDao.getAllUsers.", e);
         }
-        return new ArrayList<>();
     }
 }

@@ -2,6 +2,7 @@ package org.lesson.dao;
 
 import org.lesson.pojo.User;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
  * STC20_Sevlets
  */
 public interface UsersDao {
-    Optional<User> findUser(String userName, String password);
+    Optional<User> findUser(String userName, String password) throws SQLException;
 
-    Collection<User> getAllUsers();
+    Collection<User> getAllUsers() throws SQLException;
 }

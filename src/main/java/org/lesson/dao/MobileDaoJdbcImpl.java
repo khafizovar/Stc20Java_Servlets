@@ -32,22 +32,19 @@ public class MobileDaoJdbcImpl implements MobileDao {
   }
 
   @Override
-  public boolean addMobile(Mobile mobile) {
+  public boolean addMobile(Mobile mobile) throws SQLException {
     try (Connection connection = connectionManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO_MOBILE)) {
       preparedStatement.setString(1, mobile.getModel());
       preparedStatement.setInt(2, mobile.getPrice());
       preparedStatement.setString(3, mobile.getManufacturer());
       preparedStatement.execute();
-    } catch (SQLException e) {
-      LOGGER.error("Some thing wrong in addMobile method", e);
-      return false;
     }
     return true;
   }
 
   @Override
-  public Optional<Mobile> getMobileById(Integer id) {
+  public Optional<Mobile> getMobileById(Integer id) throws SQLException {
     try (Connection connection = connectionManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FROM_MOBILE)) {
       preparedStatement.setInt(1, id);
@@ -60,13 +57,11 @@ public class MobileDaoJdbcImpl implements MobileDao {
               resultSet.getString(4)));
         }
       }
-    } catch (SQLException e) {
-      LOGGER.error("Some thing wrong in getMobileById method", e);
     }
     return Optional.empty();
   }
 
-  @Override public Collection<Mobile> getAllMobile() {
+  @Override public Collection<Mobile> getAllMobile() throws SQLException {
     List<Mobile> lstmb = new ArrayList<>();
     try (Connection connection = connectionManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_FROM_MOBILE);
@@ -79,9 +74,6 @@ public class MobileDaoJdbcImpl implements MobileDao {
             resultSet.getString(4)));
       }
       return lstmb;
-    } catch (SQLException e) {
-      LOGGER.error("Some thing wrong in getAllMobile method", e);
     }
-    return new ArrayList<>();
   }
 }

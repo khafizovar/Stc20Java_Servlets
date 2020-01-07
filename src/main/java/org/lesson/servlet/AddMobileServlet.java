@@ -2,6 +2,8 @@ package org.lesson.servlet;
 
 import org.lesson.dao.MobileDao;
 import org.lesson.pojo.Mobile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,9 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/addmobile")
 public class AddMobileServlet extends HttpServlet {
+
+    private Logger logger = LoggerFactory.getLogger(AddMobileServlet.class);
 
     @Inject
     private MobileDao mobileDao;
@@ -26,13 +31,18 @@ public class AddMobileServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setCharacterEncoding("utf-8");
         String model = req.getParameter("model");
         String price = req.getParameter("price");
         String manufacturer = req.getParameter("manufacturer");
         Mobile mobile = new Mobile(null, model, Integer.valueOf(price), manufacturer);
-        mobileDao.addMobile(mobile);
+        try {
+            mobileDao.addMobile(mobile);
+        } catch (SQLException e) {
+            logger.error("AddMobileServlet doGet", e);
+            throw new ServletException(e);
+        }
 
         resp.sendRedirect(req.getContextPath() + "/allmobiles");
     }
