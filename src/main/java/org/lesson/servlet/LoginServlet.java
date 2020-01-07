@@ -2,6 +2,7 @@ package org.lesson.servlet;
 
 
 import org.lesson.auth.AuthUtils;
+import org.lesson.dao.LoggingUsersDao;
 import org.lesson.dao.UsersDaoJdbcImpl;
 import org.lesson.pojo.User;
 import org.slf4j.Logger;
@@ -25,7 +26,12 @@ public class LoginServlet extends HttpServlet {
     private Logger logger = LoggerFactory.getLogger(LoginServlet.class);
 
     @Inject
-    private UsersDaoJdbcImpl usersDaoJdbcImpl;
+    private LoggingUsersDao loggingUsersDao;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +51,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         Optional<User> userAccount = null;
         try {
-            userAccount = usersDaoJdbcImpl.findUser(userName, password);
+            userAccount = loggingUsersDao.findUser(userName, password);
         } catch (SQLException e) {
             logger.error("LoginServlet doGet", e);
             throw new ServletException(e);

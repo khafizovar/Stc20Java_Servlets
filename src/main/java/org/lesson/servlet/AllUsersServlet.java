@@ -1,5 +1,6 @@
 package org.lesson.servlet;
 
+import org.lesson.dao.LoggingUsersDao;
 import org.lesson.dao.UsersDao;
 import org.lesson.pojo.User;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class AllUsersServlet extends HttpServlet {
     private Logger logger = LoggerFactory.getLogger(AllUsersServlet.class);
 
     @Inject
-    private UsersDao usersDao;
+    private LoggingUsersDao usersDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
