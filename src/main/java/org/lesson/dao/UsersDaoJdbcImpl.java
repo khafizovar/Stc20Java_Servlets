@@ -26,7 +26,6 @@ import java.util.Optional;
 @EJB
 public class UsersDaoJdbcImpl implements UsersDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UsersDaoJdbcImpl.class);
     public static final String SELECT_FROM_PUBLIC_USERS_WHERE_USERNAME_AND_PASSWORD = "SELECT * FROM public.\"users\" WHERE username = ? AND password = ?";
 
     private ConnectionManager connectionManager;
